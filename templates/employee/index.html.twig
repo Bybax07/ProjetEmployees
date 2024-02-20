@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Employee{% endblock %}
+
+{% block body %}
+
+
+
+<style>
+ .table { margin: 1em auto;max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;}
+</style>
+
+
+    <h1>Liste des employées</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numéro d'employee</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Sexe</th>
+                <th>Date  d'anniversaire</th>
+                <th>Photo</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        
+<tbody>
+        {% for employee in pagination %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.firstName }}</td>
+                <td>{{ employee.lastName }}</td>
+                <td>{{ employee.gender.value }}</td>
+                <td>{{ employee.birthDate ? employee.birthDate|date('Y-m-d') : '' }}</td>
+                <td>{{ employee.photo }}</td>
+                <td>{{ employee.email }}</td>
+                <td>
+                   <a href="{{ path('app_employee_show', {'id': employee.id}) }}">show</a>
+                {% if app.user %}
+                    {% if app.user.isAdmin %}
+                        <a href="{{ path('app_employee_edit', {'id': employee.id}) }}">edit</a>
+                    {% endif %}
+                {% endif %}
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if app.user %}
+        {% if  app.user.isAdmin %}
+            <a href="{{ path('app_employee_new') }}">Create new</a>
+        {% endif %}
+     {% endif %}
+
+         {{knp_pagination_render(pagination)}}
+</tbody>
+
+
+    
+{% endblock %}

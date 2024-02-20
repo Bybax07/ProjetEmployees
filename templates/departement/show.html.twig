@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DepartementController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+
+    <h1>{{department.getDeptName}} - {{ department.deptNo }}</h1>
+
+        <p> {{department.getDescription}} </p>
+       
+        <p> Il y a {{countEmploye}} employées qui travaillent dans ce département.</p>
+
+        <a href = "{{ path(app_dept_title) }}"> Les postes vacants</a>
+       
+
+
+ 
+</div>
+{% endblock %}
